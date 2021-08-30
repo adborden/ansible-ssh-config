@@ -1,0 +1,18 @@
+galaxy_info:
+  role_name: ssh_config
+  namespace: adborden
+  author: Aaron D Borden
+  description: Configure SSH for a single user.
+
+  license: AGPL-3.0
+  min_ansible_version: 2.1
+
+  platforms:
+   - name: Ubuntu
+     versions:
+     - bionic
+     - focal
+
+  galaxy_tags: [ssh, linux]
+
+dependencies: []

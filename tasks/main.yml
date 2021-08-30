@@ -1,0 +1,44 @@
+---
+- name: assert required variables are defined
+  assert:
+    that:
+      - ssh_user is defined
+      - ssh_home_dir is defined
+      - ssh_private_key is defined
+      - ssh_public_key is defined
+
+- name: create SSH directory
+  file:
+    path: "{{ ssh_home_dir }}/.ssh"
+    owner: "{{ ssh_user }}"
+    group: "{{ ssh_user }}"
+    mode: 0700
+    state: directory
+
+- name: copy ssh private key
+  copy:
+    dest: "{{ ssh_home_dir }}/.ssh/id_rsa"
+    content: |
+      {{ ssh_private_key }}
+    owner: "{{ ssh_user }}"
+    group: "{{ ssh_user }}"
+    mode: 0600
+
+- name: copy ssh public key
+  copy:
+    dest: "{{ ssh_home_dir }}/.ssh/id_rsa.pub"
+    content: |
+      {{ ssh_public_key }}
+    owner: "{{ ssh_user }}"
+    group: "{{ ssh_user }}"
+    mode: 0644
+
+- name: copy SSH known_hosts
+  copy:
+    dest: "{{ ssh_home_dir }}/.ssh/known_hosts"
+    content: |
+      {{ ssh_known_hosts }}
+    owner: "{{ ssh_user }}"
+    group: "{{ ssh_user }}"
+    mode: 0644
+  when: ssh_known_hosts is defined

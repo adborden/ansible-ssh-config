@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include ssh_config"
+      include_role:
+        name: "ssh_config"
+  vars:
+    ssh_user: root
+    ssh_home_dir: /root
+    ssh_private_key: |
+      ssh-private-key
+    ssh_public_key: |
+      ssh-public-key
+    ssh_known_hosts: |
+      ssh-known-hosts
